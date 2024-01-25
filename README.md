@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Cyber Note Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Used in cyber vulnerability warfare analysis and evaluation lectures
+
+Question and Answer Bulletin Board
 
 ## Available Scripts
 
