@@ -2,7 +2,7 @@
 
 Used in cyber vulnerability warfare analysis and evaluation lectures
 
-Question and Answer Bulletin Board
+Question and Answer Board
 
 ## Available Scripts
 

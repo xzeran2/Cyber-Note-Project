@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Ratio from 'react-bootstrap/Ratio';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ const AnswerForm = () => {
   const [submittedAnswer, setSubmittedAnswer] = useState('');
   const [contents, setContents] = useState('');
   const [question, setQuestion] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 서버에서 질문 데이터 가져오기
@@ -40,12 +41,17 @@ const AnswerForm = () => {
       setSubmittedAnswer(reply);
       console.log(reply);
     } catch (error) {
-      console.error('답변 제출 중 오류 발생:', error);
+      console.error('Error:', error);
     }
   };
 
+  const handleGoBack = () => {
+    // 브라우저의 이전 페이지로 이동
+    navigate(-1);
+  };
+
   if (!question) {
-    return <div>질문을 찾을 수 없습니다</div>;
+    return <div>Error!!</div>;
   }
 
   return (
@@ -54,9 +60,9 @@ const AnswerForm = () => {
         <embed />
       </Ratio>
 
-      <h2>질문 상세 정보</h2>
-      <p>{question.id}</p>
-      <p>{question.name}</p>
+      <h2>Question Detail</h2>
+      <p>ID : {question.id}</p>
+      <p>NAME : {question.name}</p>
 
       {/* Contents 아래에 위치한 Answer Form */}
       <div style={{ marginTop: '20px' }}>
@@ -80,12 +86,13 @@ const AnswerForm = () => {
         ></textarea>
 
         <br />
-        <button onClick={handleAnswerSubmit}>답변 제출</button>
+        <button onClick={handleGoBack}>back</button>
+        <button onClick={handleAnswerSubmit}>Submit</button>
 
         {/* Submitted Answer 클릭 시 question.reply를 표시하는 부분 */}
         {submittedAnswer && (
           <div style={{ marginTop: '20px' }}>
-            <h3>저장된 답변</h3>
+            <h3>Anwser is Stored...</h3>
             <p>{submittedAnswer}</p>
           </div>
         )}
