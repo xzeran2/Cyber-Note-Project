@@ -1,39 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Ratio from 'react-bootstrap/Ratio';
 import axios from 'axios';
 
 const AnswerForm = () => {
   const { id } = useParams();
-  const [answer, setAnswer] = useState('');
   const [reply, setReply] = useState('');
   const [submittedAnswer, setSubmittedAnswer] = useState('');
   const [contents, setContents] = useState('');
-  const [question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 서버에서 질문 데이터 가져오기
     const fetchQuestion = async () => {
       try {
-        var response = await axios.get(`http://localhost:3001/api/questions/select/${id}`);
-        console.log(response.data);
-        const questions = response.data;
-        if (questions && questions.length > 0) {
-          const selectedQuestion = questions.find((q) => q.id === parseInt(id, 10));
-          if (selectedQuestion) {
-            setQuestion(selectedQuestion);
-            setContents(selectedQuestion.contents);
-            setReply(selectedQuestion.reply);
-          }
-        }
+        const response = await axios.get(`http://localhost:3001/api/questions/select/${id}`);
+        const { id, name, contents, reply } = response.data;
+        setQuestion({ id, name, contents, reply });
       } catch (error) {
-        console.error('질문을 가져오는 중 오류 발생:', error);
+        console.error('ERROR fetchQuestion:', error);
       }
     };
-
-    fetchQuestion();
+    if (id) {
+      fetchQuestion();
+    }
   }, [id]);
+
+
 
   const handleAnswerSubmit = async () => {
     try {
@@ -46,13 +39,8 @@ const AnswerForm = () => {
   };
 
   const handleGoBack = () => {
-    // 브라우저의 이전 페이지로 이동
     navigate(-1);
   };
-
-  if (!question) {
-    return <div>Error!!</div>;
-  }
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
@@ -70,16 +58,16 @@ const AnswerForm = () => {
         {/* Contents를 textarea에 표시 */}
         <h3>Contents Form</h3>
         <textarea
-          rows="10"
-          cols="50"
-          value={contents}
+          rows="7"
+          cols="40"
+          value={question.contents}
           readOnly
         ></textarea>
 
         <h3>Answer Form</h3>
         <textarea
-          rows="10"
-          cols="50"
+          rows="7"
+          cols="40"
           value={reply}
           onChange={(e) => setReply(e.target.value)}
           readOnly={false}
