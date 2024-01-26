@@ -51,7 +51,7 @@ app.get('/api/questions/select/:id', (req, res) => {
       res.status(500).send('Internal Server Error');
     } else {
       res.json(results);
-      console.error('Item selected successfully'+ results.id);
+      console.error('Select OK!');
     }
   });
 });

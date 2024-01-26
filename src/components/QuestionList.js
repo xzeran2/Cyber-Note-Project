@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Row, Col, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
+import '../css/QuestionList.css'; // 스타일링을 위한 CSS 파일
 
 const QuestionList = () => {
   const [questionData, setQuestionData] = useState({
@@ -72,7 +73,7 @@ const QuestionList = () => {
   };
 
   return (
-    <div className="question-list-container" style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div className="question-list-container" style={{ overflowX: 'scroll', textAlign: 'center', marginTop: '50px' }}>
       <header>
         <h1>Cyber Note</h1>
       </header>
@@ -91,25 +92,25 @@ const QuestionList = () => {
           <Row className="mb-4">
             <Col xs={12} style={{ textAlign: 'center', marginTop: '50px' }}>
               {['ID','Name'].map((field) => (
-                <Form.Group key={field} controlId={`cyber_${field}.ControlInput1`} className="mb-3">
-                  <Form.Label>{field}</Form.Label>
-                  <Form.Control
-                    type={field.toLowerCase()}
-                    placeholder={`Input your ${field.toLowerCase()}`}
-                    className="mb-2"
-                    value={questionData[field.toLowerCase()]}
-                    onChange={(e) => setQuestionData({ ...questionData, [field.toLowerCase()]: e.target.value })}
-                  />
-                </Form.Group>
+                <Form.Group key={field} controlId={`cyber_${field}.ControlInput1`} className="mb-3" style={{ marginBottom: 10 }}>
+                <Form.Label>{field}</Form.Label>
+                <Form.Control
+                  type={field.toLowerCase()}
+                  className="mb-2 windows-style-input"
+                  value={questionData[field.toLowerCase()]}
+                  onChange={(e) => setQuestionData({ ...questionData, [field.toLowerCase()]: e.target.value })}
+                />
+               </Form.Group>
+
               ))}
-              <Form.Group controlId="cyber_contents.ControlTextarea1" className="mb-3">
+              <Form.Group controlId="cyber_contents.ControlTextarea1" className="mb-3" >
                 <Form.Label>Contents</Form.Label>
                 <Form.Control
                   as="textarea"
-                  rows="10"
-                  cols="30"
+                  rows="5"
+                  cols="15"
                   placeholder="Input your contents...."
-                  className="mb-2"
+                  className="mb-2 windows-style-input"
                   value={questionData.contents}
                   onChange={(e) => setQuestionData({ ...questionData, contents: e.target.value })}
                 />

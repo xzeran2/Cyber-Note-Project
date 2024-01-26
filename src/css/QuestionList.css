@@ -1,73 +1,67 @@
-/* src/css/QuestionList.css */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f0f0f0;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
+/* QuestionList.css */
 
 .question-list-container {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 8px;
+  text-align: center;
+  margin-top: 50px;
 }
 
 header {
-  text-align: center;
-}
-
-nav {
-  margin-bottom: 20px;
+  background-color: #007bff;
+  padding: 20px;
+  color: white;
 }
 
 nav ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  background-color: #bcdafa;
 }
 
 nav li {
-  margin-bottom: 5px;
-}
-
-nav a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
+  margin: 0 10px;
 }
 
 .custom-form {
-  text-align: left;
-}
-
-.custom-form label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 .custom-form textarea {
   width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-dialog {
+  max-width: 500px;
+}
+
+.modal-body {
+  text-align: left;
+}
+
+.modal-footer {
+  justify-content: space-between;
+}
+
+button {
+  background-color: #007bff;
+  margin-right: 10px;
+  padding: 10px;
+  color: white;
+  border: none; 
+}
+
+#cyber_ID.ControlInput1,
+#cyber_Name.ControlInput1 {
+  text-align: left;
 }
 
 /* src/css/QuestionList.css */
-/* ... 이전 스타일들 ... */
 
-button {
-  background-color: #66a3ff; /* 연한 파란색 */
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px; /* 각 버튼 사이의 간격 조절 */
+/* Windows 스타일의 Form.Control 스타일 */
+.windows-style-input {
+  border-radius: 0; /* 모서리를 둥글게 하지 않음 */
+  border: 1px solid #ccc; /* 테두리 스타일 */
+  padding: 8px; /* 내부 여백 조절 */
+  width: 100%; /* 전체 너비 사용 */
 }
-
-button:hover {
-  background-color: #3385ff; /* 더 진한 파란색 */
-}
-
