@@ -1,6 +1,6 @@
 //server.js
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const cors = require('cors'); // 추가: Cross-Origin Resource Sharing 허용을 위한 미들웨어
 
 const app = express();
@@ -21,6 +21,15 @@ connection.connect((err) => {
     console.error('[Error] connecting to MySQL:', err);
   } else {
     console.log('Connected to MySQL');
+  }
+});
+
+connection.on('error', (err) => {
+  console.error('MySQL 연결오류:', err);
+  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+    connection.connect();
+  } else {
+    throw err;
   }
 });
 

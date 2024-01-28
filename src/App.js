@@ -3,6 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import QuestionList from './components/QuestionList';
 import AnswerForm from './components/AnswerForm';
+import StudentsForm from './components/StudentsForm';
+import StudentForm from './components/StudentForm';
 
 const App = () => {
   const [questions, setQuestions] = React.useState([]);
@@ -12,15 +14,12 @@ const App = () => {
   };
 
   return (
-    // React Router의 라우터 설정
     <Router>
-      {/* 라우팅을 위한 Routes 컴포넌트 */}
       <Routes>
-        {/* 메인 화면에 해당하는 컴포넌트 */}
         <Route path="/" element={<QuestionList questions={questions} addQuestion={addQuestion} />} />
-        
-        {/* '/answer/:id' 경로에 해당하는 페이지 */}
         <Route path="/answer/:id" element={<AnswerForm />} />
+        <Route path="/students" element={<StudentsForm />} />
+        <Route path="/student/:studentId" element={<StudentForm />} />
       </Routes>
     </Router>
   );

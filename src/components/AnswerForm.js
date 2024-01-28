@@ -2,6 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/AnswerForm.css';
+import AppBar from '@mui/material/AppBar';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Alert from '@mui/material/Alert';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 const AnswerForm = () => {
   const { id: QuestionId } = useParams();
@@ -47,49 +64,97 @@ const AnswerForm = () => {
     }));
   };
 
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+  }));
+
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <header>
-        <h1>Cyber Note</h1>
-      </header>
-      <h2>Question Detail</h2>
-      <p>ID : {QuestionId}</p>
-      <p>NAME : {question.name}</p>
-
-      {/* Contents 아래에 위치한 Answer Form */}
-      <div style={{ marginTop: '20px' }}>
-
-        {/* Contents를 textarea에 표시 */}
-        <h3>Contents Form</h3>
-        <textarea
-          rows="7"
-          cols="40"
-          value={question.contents}
-          readOnly
-        ></textarea>
-
-        <h3>Answer Form</h3>
-        <textarea
-          rows="7"
-          cols="40"
-          value={question.reply}
-          onChange={(e) => handleReplyChange (e)}
-          readOnly={false}
-        ></textarea>
-
-        <br />
-        <button onClick={handleGoBack}>back</button>
-        <button onClick={handleAnswerSubmit}>Submit</button>
-
-        {/* Submitted Answer 클릭 시 question.reply를 표시하는 부분 */}
-        {submittedAnswer && (
-          <div style={{ marginTop: '20px' }}>
-            <h3>Anwser is Stored...</h3>
-            <p>{submittedAnswer}</p>
-          </div>
-        )}
-      </div>
-    </div>
+    <Container maxWidth="sm">
+      <Box sx={{ flexGrow: 1, marginBottom: -1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography m={1}variant="h4" component="div" sx={{ flexGrow: 1 }}>
+            Cyber Note
+          </Typography>
+          <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="back"
+              component={Link}
+              to="/"
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          <Button color="inherit" component={Link} to="/students">
+              Students
+          </Button>
+        </Toolbar>
+      </AppBar>
+      </Box>
+      <h2 style={{ marginBottom: '0' }}>Question Detail</h2>
+      <Stack spacing={0} sx={{ border: '1px solid #bcdafa', borderRadius: '8px' }}>
+      <p style={{ textAlign: 'center' }}>{QuestionId}  {question.name}</p>
+      <Box sx={{ width: '100%'}}>
+      <Item>{question.contents}</Item>
+     </Box>
+     </Stack>
+     
+     <h2 style={{ marginBottom: '0' }}>Answer Detail</h2>
+     <Stack spacing={0} sx={{ border: '1px solid #bcdafa', borderRadius: '8px' }}>
+     <Box sx={{ width: '100%'}}>
+      <Item>{question.reply}</Item>
+     </Box>
+     <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        '& > :not(style)': { m: 2},
+      }}
+      >
+       <TextField           
+          multiline
+          rows={2}
+          onChange={(e) => setQuestion({ ...question, reply: e.target.value })}
+          fullWidth
+          label="Contents"
+          id="fullWidth"
+        />
+      </Box>
+      <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '& > :not(style)': { m: 1},
+      }}
+      >
+        <ButtonGroup variant="outlined" aria-label="outlined button group">
+          <Button size="large" variant="outlined" onClick={handleGoBack}>Back</Button>
+          <Button size="large" variant="outlined" onClick={handleAnswerSubmit}>Answer</Button>
+        </ButtonGroup>
+      </Box>
+      </Stack>
+      {submittedAnswer && (
+        <Alert severity="info" sx={{ mt: 0 }}>
+          {submittedAnswer}
+        </Alert>
+      )}  
+    </Container>
   );
 };
 
